@@ -6,5 +6,6 @@
 int main()
 {
 	LinearList linearList;
-
+	init(linearList);
+	workWithUser(linearList);
 }

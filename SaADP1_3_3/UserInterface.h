@@ -26,9 +26,9 @@ int userInput(int numberOfMenu);
 
 void workWithUser(LinearList& linearList);
 
-void caseAddItem(int* list, int& numbOfItems);
+void caseAddItem(ListItem* list, int& numbOfItems);
 
-void caseDeleteItem(int* list, int& numbOfItems);
+//void caseDeleteItem(int* list, int& numbOfItems);
 
 bool workOrExit(); 
 
