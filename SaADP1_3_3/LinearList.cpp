@@ -55,11 +55,22 @@ void addItemIsEmpty(ListItem* list, int data, int& numbOfItems)
 
 void addItemBefore(ListItem* list, int indexBefore, int indexCurrent, int data, int& numbOfItems)
 {
-	
-	
+	int indexEmpty = -2;
+	bool check = true;
+	searchAfter(list, -1, indexEmpty, check);
+	list[indexEmpty].next = indexCurrent;
+	list[indexBefore].next = indexEmpty;
+	list[indexEmpty].data = data;
 }
 
 void addItemAfter(ListItem* list, int indexCurrent, int data, int& numbOfItems)
 {
-	
+	int indexEmpty = -2;
+	bool check = true;
+	searchAfter(list, -1, indexEmpty, check);
+	list[indexEmpty].next = list[indexCurrent].next;
+	list[indexCurrent].next = indexEmpty;
+	list[indexEmpty].data = data;
+	numbOfItems++;
+
 }

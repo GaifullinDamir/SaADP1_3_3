@@ -13,7 +13,7 @@ struct LinearList
 void init(LinearList& linearList);
 bool isEmpty(int numbOfItems);
 bool isFull(int numbOfItems);
-int searchAfter(ListItem* list, int data, bool& check);
+int searchAfter(ListItem* list, int data, int index, bool& check);
 void searchBefore(ListItem* list, int data, int indexBefore, int indexCurrent);
 void addItemIsEmpty(ListItem* list, int data, int& numbOfItems);
 void addItemBefore(ListItem* list, int indexBefore, int indexCurrent, int data, int& numbOfItems);
