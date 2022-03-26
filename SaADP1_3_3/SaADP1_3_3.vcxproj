@@ -140,11 +140,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="LinearList.cpp" />
-    <ClCompile Include="SaADP1_3_3.cpp" />
+    <ClCompile Include="ListItem.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="UserInterface.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LinearList.h" />
+    <ClInclude Include="ListItem.h" />
     <ClInclude Include="UserInterface.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SaADP1_3_3.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="LinearList.cpp">
@@ -24,12 +24,18 @@
     <ClCompile Include="UserInterface.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="ListItem.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LinearList.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="UserInterface.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="ListItem.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
