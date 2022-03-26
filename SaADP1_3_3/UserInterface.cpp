@@ -119,7 +119,7 @@ void caseAddItem(ListItem* list, int& numbOfItems)
 		std::cout << "   Enter an element instead of or after which to insert a new one." << std::endl;
 		int currentData = userInput(EnterItem);
 		bool check = true;
-		int index = searchAfter(list, currentData, check);
+		int indexCurrent = searchAfter(list, currentData, check);
 		if (check)
 		{
 			printAdditionalMenu();
@@ -131,13 +131,18 @@ void caseAddItem(ListItem* list, int& numbOfItems)
 				int indexBefore, indexCurrent;
 				case(Before):
 				{
-					searchBefore(list, data, check, indexBefore, indexCurrent);
-					addItemBefore(list, )
+					searchBefore(list, data, indexBefore, indexCurrent);
+					addItemBefore(list, indexBefore, indexCurrent, data, numbOfItems);
+					break;
+				}
+				case(After):
+				{
+					addItemAfter(list, indexCurrent, data, numbOfItems);
+					break;
 				}
 				default:
 					break;
 			}
-			addItem(list, data, index, beforeOrAfter, numbOfItems);
 			std::cout << std::endl;
 			std::cout << "   Item added." << std::endl;
 			std::cout << std::endl;

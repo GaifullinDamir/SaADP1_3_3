@@ -32,7 +32,7 @@ void searchAfter(ListItem* list, int data, int index, bool& check)
 void searchBefore(ListItem* list, int data, int indexBefore, int indexCurrent)
 {
 	int current = list[0].next;
-	int currentBefore;
+	int currentBefore = current;
 	while (current != -1)
 	{
 		if (list[current].data == data) 
