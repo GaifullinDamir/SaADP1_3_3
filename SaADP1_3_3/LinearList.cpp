@@ -1,5 +1,6 @@
 #include <iostream>
 #include "LinearList.h"
+#include "ListItem.h"
 
 void init(LinearList& linearList)
 {
@@ -12,16 +13,37 @@ void init(LinearList& linearList)
 }
 bool isEmpty(int numbOfItems) { return numbOfItems == 0; }
 bool isFull(int numbOfItems) { return numbOfItems == ArraySize; }
-int search(ListItem* list, int data, bool& check)
+void searchAfter(ListItem* list, int data, int index, bool& check)
 {
 	int current = list[0].next;
 	while (current != -1)
 	{
-		if (list[current].data == data) { check = true; break; }
+		if (list[current].data == data) 
+		{ 
+			check = true;
+			index = current;
+			break; 
+		}
 		else check = false;
 		current = list[current].next;
 	}
-	return current;
+}
+
+void searchBefore(ListItem* list, int data, int indexBefore, int indexCurrent)
+{
+	int current = list[0].next;
+	int currentBefore;
+	while (current != -1)
+	{
+		if (list[current].data == data) 
+		{ 
+			indexBefore = currentBefore; 
+			indexCurrent = current;
+			break; 
+		}
+		currentBefore = current;
+		current = list[current].next;
+	}
 }
 
 void addItemIsEmpty(ListItem* list, int data, int& numbOfItems)
@@ -31,7 +53,13 @@ void addItemIsEmpty(ListItem* list, int data, int& numbOfItems)
 	numbOfItems++;
 }
 
-void addItem(ListItem* list, int index, int data, int& numbOfItems)
+void addItemBefore(ListItem* list, int indexBefore, int indexCurrent, int data, int& numbOfItems)
 {
+	
+	
+}
 
+void addItemAfter(ListItem* list, int indexCurrent, int data, int& numbOfItems)
+{
+	
 }
