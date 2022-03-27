@@ -11,8 +11,11 @@ void init(LinearList& linearList)
 	}
 	linearList.numbOfItems = 0;
 }
+
 bool isEmpty(int numbOfItems) { return numbOfItems == 0; }
+
 bool isFull(int numbOfItems) { return numbOfItems + 1 == ArraySize; }
+
 int searchEmpty(ListItem* list)
 {
 	int current = list[0].next;
@@ -22,7 +25,8 @@ int searchEmpty(ListItem* list)
 	}
 	return current;
 }
-void searchAfter(ListItem* list, int data, int& index, bool& check)
+
+void searchCurrent(ListItem* list, int data, int& index, bool& check)
 {
 	int current = list[0].next;
 	while (current != 0)
@@ -37,7 +41,8 @@ void searchAfter(ListItem* list, int data, int& index, bool& check)
 		current = list[current].next;
 	}
 }
-void searchBefore(ListItem* list, int data, int& indexBefore, int& indexCurrent)
+
+void searchCurrentTail(ListItem* list, int data, int& indexBefore, int& indexCurrent)
 {
 	int current = list[0].next;
 	int currentBefore = 0;
@@ -53,6 +58,7 @@ void searchBefore(ListItem* list, int data, int& indexBefore, int& indexCurrent)
 		current = list[current].next;
 	}
 }
+
 void addItemIsEmpty(ListItem* list, int data, int& numbOfItems)
 {
 	list[1].data = data;
@@ -60,6 +66,7 @@ void addItemIsEmpty(ListItem* list, int data, int& numbOfItems)
 	list[0].next = 1;
 	numbOfItems++;
 }
+
 void addItemBefore(ListItem* list, int indexBefore, int indexCurrent, int data, int& numbOfItems)
 {
 	int indexEmpty = searchEmpty(list);
@@ -68,6 +75,7 @@ void addItemBefore(ListItem* list, int indexBefore, int indexCurrent, int data, 
 	list[indexEmpty].data = data;
 	numbOfItems++;
 }
+
 void addItemAfter(ListItem* list, int indexCurrent, int data, int& numbOfItems)
 {
 	int indexEmpty = searchEmpty(list);
@@ -76,6 +84,7 @@ void addItemAfter(ListItem* list, int indexCurrent, int data, int& numbOfItems)
 	list[indexEmpty].data = data;
 	numbOfItems++;
 }
+
 void printList(ListItem* list, int numbOfItems)
 {
 	int current = list[0].next;
@@ -84,4 +93,11 @@ void printList(ListItem* list, int numbOfItems)
 		std::cout << "   " << list[current].data << std::endl;
 		current = list[current].next;
 	}
+}
+
+void deleteItem(ListItem* list, int indexBefore, int indexCurrent, int& numbOfItems)
+{
+	list[indexBefore].next = list[indexCurrent].next;
+	list[indexCurrent].next = -1;
+	numbOfItems--;
 }

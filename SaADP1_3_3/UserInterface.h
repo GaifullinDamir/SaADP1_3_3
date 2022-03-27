@@ -17,7 +17,7 @@ enum userInterface
 	After = 2,
 	TwoCases = 2,
 	Continue = 1,
-	Exit = 2
+	Exit = 2,
 };
 
 void printMainMenu();
@@ -28,7 +28,7 @@ void workWithUser(LinearList& linearList);
 
 void caseAddItem(ListItem* list, int& numbOfItems);
 
-//void caseDeleteItem(int* list, int& numbOfItems);
+void caseDeleteItem(ListItem* list, int& numbOfItems);
 
 bool workOrExit(); 
 
