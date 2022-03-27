@@ -12,25 +12,20 @@ void init(LinearList& linearList)
 	linearList.numbOfItems = 0;
 }
 bool isEmpty(int numbOfItems) { return numbOfItems == 0; }
-bool isFull(int numbOfItems) { return numbOfItems == ArraySize; }
-int searchEmpty(ListItem* list) //Ошибка здесь. Должен быть цикл While, а не For.
+bool isFull(int numbOfItems) { return numbOfItems + 1 == ArraySize; }
+int searchEmpty(ListItem* list)
 {
 	int current = list[0].next;
-	//while (current != -1)
-	//{
-	//	if (list[current].next == -1) { break; }
-	//}
 	for (current ; current < ArraySize; current++)
 	{
 		if (list[current].next == -1) { break; }
 	}
-	return current + 1;
-
+	return current;
 }
 void searchAfter(ListItem* list, int data, int& index, bool& check)
 {
 	int current = list[0].next;
-	while (current != -1)
+	while (current != 0)
 	{
 		if (list[current].data == data) 
 		{ 
@@ -46,7 +41,7 @@ void searchBefore(ListItem* list, int data, int& indexBefore, int& indexCurrent)
 {
 	int current = list[0].next;
 	int currentBefore = 0;
-	while (current != -1)
+	while (current != 0)
 	{
 		if (list[current].data == data) 
 		{ 
@@ -61,7 +56,7 @@ void searchBefore(ListItem* list, int data, int& indexBefore, int& indexCurrent)
 void addItemIsEmpty(ListItem* list, int data, int& numbOfItems)
 {
 	list[1].data = data;
-	list[1].next = -2;
+	list[1].next = 0;
 	list[0].next = 1;
 	numbOfItems++;
 }
@@ -84,13 +79,9 @@ void addItemAfter(ListItem* list, int indexCurrent, int data, int& numbOfItems)
 void printList(ListItem* list, int numbOfItems)
 {
 	int current = list[0].next;
-	while (current != -1 && current != -2)
+	while (current != 0)
 	{
 		std::cout << "   " << list[current].data << std::endl;
 		current = list[current].next;
 	}
-	//for (int i = 1; i < ArraySize; i++)
-	//{
-	//	std::cout << "   " << list[i].data << std::endl;
-	//}
 }
