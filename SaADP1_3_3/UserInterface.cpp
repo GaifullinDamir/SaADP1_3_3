@@ -10,14 +10,7 @@ void printMainMenu()
 	std::cout << "1. Add an element to the list." << std::endl;
 	std::cout << "2. Remove an element from the list." << std::endl;
 	std::cout << "3. Display list on screen." << std::endl;
-	std::cout << std::endl;
-}
-
-void printAdditionalMenu()
-{
-	std::cout << std::endl;
-	std::cout << "1. Insert element before specified." << std::endl;
-	std::cout << "2. Insert element after specified." << std::endl;
+	std::cout << "4. STOP." << std::endl;
 	std::cout << std::endl;
 }
 
@@ -72,91 +65,86 @@ int userInput(int numberOfMenu)
 	return option;
 }
 
-void workWithUser(LinearList& linearList)
+void workWithUser(LinearList& linearList, int& head)
 {
-	ListItem* list = linearList.list;
 	int& numbOfItems = linearList.numbOfItems;
-	bool work = true;
+	bool work = true; printMainMenu();
 	while (work)
 	{
-		printMainMenu();
-		std::cout << "   What do you want to do? " << std::endl;
-		std::cout << std::endl;
-		int option = userInput(MainMenu);
-		switch (option)
+		
+		std::cout << "   Choice: ";
+
+		switch (userInput(MainMenu))
 		{
 		case(AddItem):
 		{
-			caseAddItem(list, numbOfItems);
+			caseAddItem(linearList, numbOfItems, head);
 			break;
 		}
 		case(DeleteItem):
 		{
-			caseDeleteItem(list, numbOfItems);
+			caseDeleteItem(linearList, numbOfItems);
 			break;
 		}
 		case(PrintQueue):
 		{
-			if (!isEmpty(numbOfItems)) { printList(list, numbOfItems); }
+			if (!isEmpty(numbOfItems)) { printList(linearList, numbOfItems); }
 			else std::cout << "   List is empty." << std::endl;
 			break;
 		}
+		case 4:
+			work = false; break;
 		default:
 			break;
 		}
-		work = workOrExit();
+		std::cout << "(0) - Show menu.\n";
 	}
 }
 
-void caseAddItem(ListItem* list, int& numbOfItems)
+void caseAddItem(LinearList& linearList, int& numbOfItems, int& head)
 {
 	if (isEmpty(numbOfItems))
 	{
 		std::cout << "   Enter the item to add." << std::endl;
 		int data = userInput(EnterItem);
-		addItemIsEmpty(list, data, numbOfItems);
+		addItemIsEmpty(linearList, data, numbOfItems, head);
 		std::cout << std::endl;
 		std::cout << "   Item added." << std::endl;
 		std::cout << std::endl;
 	}
 	else if (!isFull(numbOfItems))
 	{
-		std::cout << "   Enter an element instead of or after which to insert a new one." << std::endl;
+		std::cout << "  Enter the item to add." << std::endl;
 		int currentData = userInput(EnterItem);
-		bool check = true;
-		int indexCurrent = NULL;
-		searchCurrent(list, currentData, indexCurrent, check);
-		if (check)
+		int parent = -5;
+		int indexCurrent = FindBigger(linearList, currentData, parent);
+		int beforeOrAfter;
+		if (indexCurrent == 0)
 		{
-			printAdditionalMenu();
-			int beforeOrAfter = userInput(BeforeOrAfterInput);
-			std::cout << "   Enter the item to add." << std::endl;
-			int data = userInput(EnterItem);
-			int indexBefore = NULL;
-			switch (beforeOrAfter)
-			{
-				case(Before):
-				{
-					searchCurrentTail(list, currentData, indexBefore, indexCurrent);
-					addItemBefore(list, indexBefore, indexCurrent, data, numbOfItems);
-					break;
-				}
-				case(After):
-				{
-					addItemAfter(list, indexCurrent, data, numbOfItems);
-					break;
-				}
-				default:
-					break;
-			}
-			std::cout << std::endl;
-			std::cout << "   Item added." << std::endl;
-			std::cout << std::endl;
+			beforeOrAfter = 2;
 		}
 		else
 		{
-			std::cout << "   There is no such element." << std::endl;
+			beforeOrAfter = 1;
 		}
+		switch (beforeOrAfter)
+		{
+		case(Before):
+		{
+			addItemBefore(linearList, parent, indexCurrent, currentData, linearList.numbOfItems, head);
+			break;
+		}
+		case(After):
+		{
+			addItemAfter(linearList, parent, currentData, linearList.numbOfItems, head);
+			break;
+		}
+		default:
+			break;
+		}
+		std::cout << std::endl;
+		std::cout << "   Item added." << std::endl;
+		std::cout << std::endl;
 	}
 	else if (isFull(numbOfItems))
 	{
@@ -166,7 +154,7 @@ void caseAddItem(ListItem* list, int& numbOfItems)
 	}
 }
 
-void caseDeleteItem(ListItem* list, int& numbOfItems)
+void caseDeleteItem(LinearList& linearList, int& numbOfItems)
 {
 	if (isEmpty(numbOfItems))
 	{
@@ -177,11 +165,11 @@ void caseDeleteItem(ListItem* list, int& numbOfItems)
 	bool check = true;
 	int indexCurrent = NULL;
 	int indexBefore = NULL;
-	searchCurrent(list, currentData, indexCurrent, check);
+	searchCurrent(linearList, currentData, indexCurrent, check);
 	if (check)
 	{
-		searchCurrentTail(list, currentData, indexBefore, indexCurrent);
-		deleteItem(list, indexBefore, indexCurrent, numbOfItems);
+		searchCurrentTail(linearList, currentData, indexBefore, indexCurrent);
+		deleteItem(linearList, indexBefore, indexCurrent, numbOfItems);
 		std::cout << std::endl;
 		std::cout << "   Item deleted." << std::endl;
 		std::cout << std::endl;

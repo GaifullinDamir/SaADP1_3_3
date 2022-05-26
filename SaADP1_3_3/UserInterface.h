@@ -24,11 +24,11 @@ void printMainMenu();
 
 int userInput(int numberOfMenu);
 
-void workWithUser(LinearList& linearList);
+void workWithUser(LinearList& linearList, int& head);
 
-void caseAddItem(ListItem* list, int& numbOfItems);
+void caseAddItem(LinearList& linearList, int& numbOfItems, int& head);
 
-void caseDeleteItem(ListItem* list, int& numbOfItems);
+void caseDeleteItem(LinearList& linearList, int& numbOfItems);
 
 bool workOrExit(); 
 

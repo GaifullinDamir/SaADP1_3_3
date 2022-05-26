@@ -2,102 +2,122 @@
 #include "LinearList.h"
 #include "ListItem.h"
 
-void init(LinearList& linearList)
+void init(LinearList& linearList, int& head)
 {
-	linearList.list[0].next = NULL;
+	linearList.list[0].data = -1;
+	linearList.list[0].next = 0;
+	head = 1;
 	for (int i = 1; i < ArraySize; i++)
 	{
-		linearList.list[i].next = -1;
+		if (i == ArraySize - 1)
+		{
+			linearList.list[i].next = 0;
+		}
+		else
+		{
+			linearList.list[i].next = i + 1;
+		}
 	}
-	linearList.numbOfItems = 0;
+	linearList.numbOfItems = 1;
 }
 
-bool isEmpty(int numbOfItems) { return numbOfItems == 0; }
+bool isEmpty(int numbOfItems) { return numbOfItems - 1 == 0; }
 
-bool isFull(int numbOfItems) { return numbOfItems + 1 == ArraySize; }
+bool isFull(int numbOfItems) { return numbOfItems == ArraySize; }
 
-int searchEmpty(ListItem* list)
+int FindBigger(LinearList& linearList, int& parent, int data)
 {
-	int current = list[0].next;
-	for (current ; current < ArraySize; current++)
+	parent = 0;
+	int current = linearList.list[0].next;
+	while (current != 0)
 	{
-		if (list[current].next == -1) { break; }
+		if (linearList.list[current].data >= data)
+		{
+			return current;
+		}
+		parent = current;
+		current = linearList.list[current].next;
 	}
 	return current;
 }
 
-void searchCurrent(ListItem* list, int data, int& index, bool& check)
+void searchCurrent(LinearList& linearList, int data, int& index, bool& check)
 {
-	int current = list[0].next;
+	int current = linearList.list[0].next;
 	while (current != 0)
 	{
-		if (list[current].data == data) 
+		if (linearList.list[current].data == data)
 		{ 
 			check = true;
 			index = current;
 			break; 
 		}
 		else check = false;
-		current = list[current].next;
+		current = linearList.list[current].next;
 	}
 }
 
-void searchCurrentTail(ListItem* list, int data, int& indexBefore, int& indexCurrent)
+void searchCurrentTail(LinearList& linearList, int data, int& indexBefore, int& indexCurrent)
 {
-	int current = list[0].next;
+	int current = linearList.list[0].next;
 	int currentBefore = 0;
 	while (current != 0)
 	{
-		if (list[current].data == data) 
+		if (linearList.list[current].data == data)
 		{ 
 			indexBefore = currentBefore; 
 			indexCurrent = current;
 			break; 
 		}
 		currentBefore = current;
-		current = list[current].next;
+		current = linearList.list[current].next;
 	}
 }
 
-void addItemIsEmpty(ListItem* list, int data, int& numbOfItems)
+void addItemIsEmpty(LinearList& linearList, int data, int& numbOfItems, int& head)
 {
-	list[1].data = data;
-	list[1].next = 0;
-	list[0].next = 1;
+	int tempI = head;
+	head = linearList.list[tempI].next;
+	linearList.list[0].next = tempI;
+	linearList.list[tempI].data = data;
+	linearList.list[tempI].next = 0;
 	numbOfItems++;
 }
 
-void addItemBefore(ListItem* list, int indexBefore, int indexCurrent, int data, int& numbOfItems)
+void addItemBefore(LinearList& linearList, int parent, int indexCurrent, int data, int& numbOfItems, int& head)
 {
-	int indexEmpty = searchEmpty(list);
-	list[indexEmpty].next = indexCurrent;
-	list[indexBefore].next = indexEmpty;
-	list[indexEmpty].data = data;
+	int indexEmpty = head;
+	head = linearList.list[indexEmpty].next;
+
+	linearList.list[parent].next = indexEmpty;
+	linearList.list[indexEmpty].next = indexCurrent;
+	linearList.list[indexEmpty].data = data;
 	numbOfItems++;
 }
 
-void addItemAfter(ListItem* list, int indexCurrent, int data, int& numbOfItems)
+void addItemAfter(LinearList& linearList, int parent, int data, int& numbOfItems, int& head)
 {
-	int indexEmpty = searchEmpty(list);
-	list[indexEmpty].next = list[indexCurrent].next;
-	list[indexCurrent].next = indexEmpty;
-	list[indexEmpty].data = data;
+	int indexEmpty = head;
+	head = linearList.list[indexEmpty].next;
+	linearList.list[parent].next = indexEmpty;
+	linearList.list[indexEmpty].data = data;
+	linearList.list[indexEmpty].next = 0;
 	numbOfItems++;
 }
 
-void printList(ListItem* list, int numbOfItems)
+void printList(LinearList& linearList, int numbOfItems)
 {
-	int current = list[0].next;
+	int current = linearList.list[0].next;
 	while (current != 0)
 	{
-		std::cout << "   " << list[current].data << std::endl;
-		current = list[current].next;
+		std::cout << "   " << linearList.list[current].data << std::endl;
+		current = linearList.list[current].next;
 	}
 }
 
-void deleteItem(ListItem* list, int indexBefore, int indexCurrent, int& numbOfItems)
+void deleteItem(LinearList& linearList, int indexBefore, int indexCurrent, int& numbOfItems)
 {
-	list[indexBefore].next = list[indexCurrent].next;
-	list[indexCurrent].next = -1;
+	linearList.list[indexBefore].next = linearList.list[indexCurrent].next;
+	linearList.list[indexCurrent].next = -1;
 	numbOfItems--;
 }

@@ -7,22 +7,23 @@ enum listItem
 struct LinearList
 {
 	ListItem list[ArraySize];
-	int numbOfItems;
+	int numbOfItems = 1;
 };
 
-void init(LinearList& linearList);
+void init(LinearList& linearList, int& head);
 
 bool isEmpty(int numbOfItems);
 bool isFull(int numbOfItems);
 
-int searchEmpty(ListItem* list);
-void searchCurrent(ListItem* list, int data, int& index, bool& check);
-void searchCurrentTail(ListItem* list, int data, int& indexBefore, int& indexCurrent);
+int FindBigger(LinearList& linearList, int& parent, int data);
 
-void addItemIsEmpty(ListItem* list, int data, int& numbOfItems);
-void addItemBefore(ListItem* list, int indexBefore, int indexCurrent, int data, int& numbOfItems);
-void addItemAfter(ListItem* list, int indexCurrent, int data, int& numbOfItems);
+void searchCurrent(LinearList& linearList, int data, int& index, bool& check);
+void searchCurrentTail(LinearList& linearList, int data, int& indexBefore, int& indexCurrent);
 
-void deleteItem(ListItem* list, int indexBefore, int indexCurrent, int& numbOfItems);
+void addItemIsEmpty(LinearList& linearList, int data, int& numbOfItems, int& head);
+void addItemBefore(LinearList& linearList, int parent, int indexCurrent, int data, int& numbOfItems, int& head);
+void addItemAfter(LinearList& linearList, int parent, int data, int& numbOfItems, int& head);
 
-void printList(ListItem* list, int numbOfItems);
+void deleteItem(LinearList& linearList, int indexBefore, int indexCurrent, int& numbOfItems);
+
+void printList(LinearList& linearList, int numbOfItems);
