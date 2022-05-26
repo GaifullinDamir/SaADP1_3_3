@@ -28,7 +28,7 @@ void workWithUser(LinearList& linearList, int& head);
 
 void caseAddItem(LinearList& linearList, int& numbOfItems, int& head);
 
-void caseDeleteItem(LinearList& linearList, int& numbOfItems);
+void caseDeleteItem(LinearList& linearList, int& numbOfItems, int& head);
 
 bool workOrExit(); 
 

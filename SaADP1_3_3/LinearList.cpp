@@ -41,18 +41,20 @@ int FindBigger(LinearList& linearList, int& parent, int data)
 	return current;
 }
 
-void searchCurrent(LinearList& linearList, int data, int& index, bool& check)
+void searchCurrent(LinearList& linearList, int data, int& parent, int& current, bool& check)
 {
-	int current = linearList.list[0].next;
+	parent = 0;
+	current = linearList.list[0].next;
+	
 	while (current != 0)
 	{
 		if (linearList.list[current].data == data)
 		{ 
 			check = true;
-			index = current;
 			break; 
 		}
 		else check = false;
+		parent = current;
 		current = linearList.list[current].next;
 	}
 }
@@ -105,6 +107,8 @@ void addItemAfter(LinearList& linearList, int parent, int data, int& numbOfItems
 	numbOfItems++;
 }
 
+
+
 void printList(LinearList& linearList, int numbOfItems)
 {
 	int current = linearList.list[0].next;
@@ -115,9 +119,10 @@ void printList(LinearList& linearList, int numbOfItems)
 	}
 }
 
-void deleteItem(LinearList& linearList, int indexBefore, int indexCurrent, int& numbOfItems)
+void deleteItem(LinearList& linearList, int parent, int current, int& numbOfItems, int& head)
 {
-	linearList.list[indexBefore].next = linearList.list[indexCurrent].next;
-	linearList.list[indexCurrent].next = -1;
+	linearList.list[parent].next = linearList.list[current].next;
+	linearList.list[current].next = head;
+	head = current;
 	numbOfItems--;
 }

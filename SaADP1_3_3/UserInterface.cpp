@@ -23,7 +23,6 @@ int userInput(int numberOfMenu)
 	{
 		try
 		{
-			std::cout << "   Enter a number, please: ";
 			std::cin >> optionInput;
 			option = std::stoi(optionInput);
 			check = false;
@@ -83,7 +82,7 @@ void workWithUser(LinearList& linearList, int& head)
 		}
 		case(DeleteItem):
 		{
-			caseDeleteItem(linearList, numbOfItems);
+			caseDeleteItem(linearList, linearList.numbOfItems, head);
 			break;
 		}
 		case(PrintQueue):
@@ -97,7 +96,6 @@ void workWithUser(LinearList& linearList, int& head)
 		default:
 			break;
 		}
-		std::cout << "(0) - Show menu.\n";
 	}
 }
 
@@ -117,7 +115,7 @@ void caseAddItem(LinearList& linearList, int& numbOfItems, int& head)
 		std::cout << "  Enter the item to add." << std::endl;
 		int currentData = userInput(EnterItem);
 		int parent = -5;
-		int indexCurrent = FindBigger(linearList, currentData, parent);
+		int indexCurrent = FindBigger(linearList, parent, currentData);
 		int beforeOrAfter;
 		if (indexCurrent == 0)
 		{
@@ -154,7 +152,7 @@ void caseAddItem(LinearList& linearList, int& numbOfItems, int& head)
 	}
 }
 
-void caseDeleteItem(LinearList& linearList, int& numbOfItems)
+void caseDeleteItem(LinearList& linearList, int& numbOfItems, int& head)
 {
 	if (isEmpty(numbOfItems))
 	{
@@ -163,13 +161,12 @@ void caseDeleteItem(LinearList& linearList, int& numbOfItems)
 	std::cout << "   Enter the item to delete." << std::endl;
 	int currentData = userInput(EnterItem);
 	bool check = true;
-	int indexCurrent = NULL;
-	int indexBefore = NULL;
-	searchCurrent(linearList, currentData, indexCurrent, check);
+	int parent = NULL;
+	int current= NULL;
+	searchCurrent(linearList, currentData, parent, current, check);
 	if (check)
 	{
-		searchCurrentTail(linearList, currentData, indexBefore, indexCurrent);
-		deleteItem(linearList, indexBefore, indexCurrent, numbOfItems);
+		deleteItem(linearList, parent, current, linearList.numbOfItems, head);
 		std::cout << std::endl;
 		std::cout << "   Item deleted." << std::endl;
 		std::cout << std::endl;
